@@ -643,6 +643,7 @@
 
   // ---------- состояние ----------
   const input = { left: false, right: false, jump: false, jumpPressed: false };
+  const touch = { left: false, right: false };
   const game = {
     mode: 'menu',
     step: 0,
@@ -702,8 +703,8 @@
   });
 
   function readKeys() {
-    input.left = !!(keys.ArrowLeft || keys.KeyA);
-    input.right = !!(keys.ArrowRight || keys.KeyD);
+    input.left = !!(keys.ArrowLeft || keys.KeyA) || touch.left;
+    input.right = !!(keys.ArrowRight || keys.KeyD) || touch.right;
   }
 
   // ---------- касания ----------
@@ -733,8 +734,8 @@
 
     if (game.mode === 'play') {
       activePointers.set(ev.pointerId, p);
-      if (hit(p, buttons.left)) input.left = true;
-      else if (hit(p, buttons.right)) input.right = true;
+      if (hit(p, buttons.left)) touch.left = true;
+      else if (hit(p, buttons.right)) touch.right = true;
       else if (hit(p, buttons.jump)) {
         input.jumpPressed = true;
         input.jump = true;
@@ -751,23 +752,23 @@
     if (!activePointers.has(ev.pointerId)) return;
     const p = toLocal(ev);
     activePointers.set(ev.pointerId, p);
-    input.left = false;
-    input.right = false;
+    touch.left = false;
+    touch.right = false;
     for (const q of activePointers.values()) {
-      if (hit(q, buttons.left)) input.left = true;
-      else if (hit(q, buttons.right)) input.right = true;
+      if (hit(q, buttons.left)) touch.left = true;
+      else if (hit(q, buttons.right)) touch.right = true;
     }
   });
 
   function releasePointer(ev) {
     activePointers.delete(ev.pointerId);
     if (game.mode === 'play') {
-      input.left = false;
-      input.right = false;
+      touch.left = false;
+      touch.right = false;
       input.jump = false;
       for (const q of activePointers.values()) {
-        if (hit(q, buttons.left)) input.left = true;
-        else if (hit(q, buttons.right)) input.right = true;
+        if (hit(q, buttons.left)) touch.left = true;
+        else if (hit(q, buttons.right)) touch.right = true;
       }
     }
   }
@@ -802,6 +803,13 @@
       .sort((a, b) => Math.abs(a.x + a.w / 2 - r.x) - Math.abs(b.x + b.w / 2 - r.x))[0];
     if (!nearest) return r;
     return { x: Math.min(Math.max(r.x, nearest.x + 6), nearest.x + nearest.w - 26), y: nearest.y };
+  }
+
+  function resetTouch() {
+    touch.left = false;
+    touch.right = false;
+    input.jump = false;
+    activePointers.clear();
   }
 
   function loadLevel(idx) {
@@ -2179,8 +2187,8 @@
       ctx.fillText(label, b.x + b.w / 2, b.y + b.h / 2 + 1);
       ctx.globalAlpha = 1;
     };
-    drawBtn(buttons.left, '◀', input.left);
-    drawBtn(buttons.right, '▶', input.right);
+    drawBtn(buttons.left, '◀', touch.left || input.left);
+    drawBtn(buttons.right, '▶', touch.right || input.right);
     drawBtn(buttons.jump, '▲', input.jump);
   }
 
