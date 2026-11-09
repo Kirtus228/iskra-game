@@ -2587,7 +2587,13 @@
   // ---------- старт ----------
   showMenu();
   Yandex.init();
-  if (save.step > 0) ui.menu.classList.add('hidden') && runStep(save.step);
+  // Если есть сохранение — сразу продолжаем с текущего шага. Раньше здесь стояло
+  // `classList.add(...) && runStep(...)`: add() возвращает undefined, поэтому
+  // runStep не вызывался, а меню уже было спрятано — игрок видел пустой экран.
+  if (save.step > 0) {
+    ui.menu.classList.add('hidden');
+    runStep(save.step);
+  }
   requestAnimationFrame(loop);
 
   window.__iskra = { game, save, player, STEPS, LEVELS, runStep, advance, get death() { return game.lastDeath; } };
