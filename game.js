@@ -1,11 +1,14 @@
-﻿/* «Искра: проект Ракета» — пиксельный платформер с головоломками для Яндекс.Игр.
+/* «Искра: проект Ракета» — пиксельный платформер с головоломками для Яндекс.Игр.
    Всё рисуется кодом: ни одного внешнего файла с картинками. */
 (() => {
   'use strict';
 
   // ---------- виртуальный экран ----------
-  const VW = 240;
+  // Базовая портретная сетка 240×427. На широких экранах видимая область
+  // расширяется по горизонтали (до 960 юнитов), чтобы на десктопе игра
+  // занимала ландшафтный экран, а не узкую колонку по центру.
   const VH = 427;
+  let VW = 240;
   const T = 12; // тайл в пикселях
 
   const canvas = document.getElementById('game');
@@ -14,7 +17,34 @@
   canvas.height = VH;
   ctx.imageSmoothingEnabled = false;
 
+  function desiredVW() {
+    const w = Math.round(VH * (window.innerWidth / Math.max(1, window.innerHeight)));
+    return Math.max(240, Math.min(w, 960));
+  }
+
+  const buttons = {
+    left: { x: 10, y: VH - 46, w: 46, h: 36 },
+    right: { x: 62, y: VH - 46, w: 46, h: 36 },
+    jump: { x: VW - 62, y: VH - 46, w: 52, h: 36 },
+  };
+  function layoutButtons() {
+    buttons.left.y = VH - 46;
+    buttons.right.y = VH - 46;
+    buttons.jump.y = VH - 46;
+    buttons.jump.x = VW - 62;
+  }
+
+  let resizedHook = null;
+
   function fit() {
+    const next = desiredVW();
+    if (next !== VW) {
+      VW = next;
+      canvas.width = VW;
+      ctx.imageSmoothingEnabled = false;
+      layoutButtons();
+      if (resizedHook) resizedHook();
+    }
     const s = Math.min(window.innerWidth / VW, window.innerHeight / VH);
     canvas.style.width = Math.floor(VW * s) + 'px';
     canvas.style.height = Math.floor(VH * s) + 'px';
@@ -685,7 +715,13 @@
     spawnY: 0,
   };
 
+  const SHOW_TOUCH = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || ('ontouchstart' in window) || /[?&]touch=1/.test(location.search);
   const keys = {};
+  resizedHook = () => {
+    if (!game.level) return;
+    game.camX = Math.max(0, Math.min(player.x - VW * 0.42, Math.max(0, game.level.width - VW)));
+    game.camY = Math.max(0, Math.min(player.y - VH * 0.55, Math.max(0, game.level.height - VH)));
+  };
   window.addEventListener('keydown', (e) => {
     if (['ArrowLeft', 'ArrowRight', 'Space', 'ArrowUp', 'KeyA', 'KeyD'].includes(e.code)) e.preventDefault();
     keys[e.code] = true;
@@ -708,11 +744,7 @@
   }
 
   // ---------- касания ----------
-  const buttons = {
-    left: { x: 10, y: VH - 46, w: 46, h: 36 },
-    right: { x: 62, y: VH - 46, w: 46, h: 36 },
-    jump: { x: VW - 62, y: VH - 46, w: 52, h: 36 },
-  };
+  // кнопки объявлены выше вместе с виртуальным экраном (layoutButtons)
 
   function toLocal(ev) {
     const r = canvas.getBoundingClientRect();
@@ -1460,6 +1492,17 @@
     persist();
     document.getElementById('btn-mute').textContent = 'звук: ' + (save.muted ? 'выкл' : 'вкл');
   });
+
+  // Кнопка доната — только на собственном сайте (на Яндекс Играх внешние платежи запрещены).
+  (function initDonateButton() {
+    const btn = document.getElementById('btn-donate');
+    if (!btn) return;
+    if (!/\.github\.io$/.test(location.hostname)) return;
+    btn.classList.remove('hidden');
+    btn.addEventListener('click', () => {
+      window.open('donate.html', '_blank', 'noopener');
+    });
+  })();
 
   // ---------- головоломки ----------
   const PIPE_BITS = { N: 1, E: 2, S: 4, W: 8 };
@@ -2216,7 +2259,7 @@
       drawItems();
       drawRobot();
       drawParticles();
-      drawTouchControls();
+      if (SHOW_TOUCH) drawTouchControls();
       drawMessage();
       if (game.flash > 0) {
         ctx.globalAlpha = game.flash;
