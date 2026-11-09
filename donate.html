@@ -41,8 +41,8 @@
 
   <!-- Ссылка на оплату подставляется здесь. Сгенерируйте в RollyPay ссылку с нужной суммой
        и замените значение href и текст суммы. -->
-  <a class="btn disabled" id="pay-btn" href="#" data-amount="199">Поддержать на 199 ₽</a>
-  <a class="btn secondary" id="pay-btn-2" href="#" data-amount="499">Поддержать на 499 ₽</a>
+  <a class="btn disabled" id="pay-btn" href="#" data-amount="50">Поддержать на 50 ₽</a>
+  <a class="btn secondary" id="pay-btn-2" href="#" data-amount="150">Поддержать на 150 ₽</a>
 
   <p class="note" id="pay-note">
     Кнопка заработает после подключения платёжной ссылки RollyPay (СБП, карты, крипта).
@@ -73,14 +73,14 @@
     </p>
     <p class="note">
       Возврат: если платёж прошёл дважды или по ошибке — напишите на
-      <span style="color:#ffd166">ВАШ_КОНТАКТ_ДЛЯ_СВЯЗИ</span> с датой, суммой и последними
+      <span style="color:#ffd166">Kirill.azs.090@gmail.com</span> с датой, суммой и последними
       4 цифрами карты; вернём в течение 10 рабочих дней тем же способом.
       Добровольные донаты за уже оказанную поддержку по закону возврату не подлежат, но спорные
       случаи разбираем вручную.
     </p>
     <p class="note">
       Поддержка не даёт игровых преимуществ, не открывает уровни и не влияет на прохождение.
-      Контакт: <span style="color:#ffd166">ВАШ_КОНТАКТ_ДЛЯ_СВЯЗИ</span>
+      Контакт: <span style="color:#ffd166">Kirill.azs.090@gmail.com</span>
     </p>
   </div>
 </div>
@@ -89,8 +89,8 @@
 (function () {
   // Подставьте сюда ссылки из RollyPay (каждая ссылка — под конкретную сумму, срок жизни ограничен).
   var LINKS = {
-    199: '', // например: 'https://pay.rollypay.io/pay/XXXXXXXX'
-    499: ''
+    50: '', // 'https://pay.rollypay.io/pay/XXXXXXXX'
+    150: ''
   };
   Object.keys(LINKS).forEach(function (amount) {
     var url = LINKS[amount];
