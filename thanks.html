@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Спасибо — «Искра»</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 24px; background: radial-gradient(circle at 50% 20%, #131a2b, #05070c 70%);
+    color: #e8eef7; font-family: Consolas, "Courier New", monospace;
+  }
+  .card {
+    width: 100%; max-width: 560px; background: rgba(9, 13, 22, 0.9);
+    border: 2px solid rgba(127, 200, 255, 0.28); padding: 28px;
+  }
+  h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: 0.04em; color: #ffd166; }
+  .sub { margin: 0 0 18px; font-size: 13px; color: #8fa6c4; }
+  p { font-size: 14px; line-height: 1.55; color: #cfe3ff; }
+  ul.patrons { list-style: none; padding: 0; margin: 16px 0; }
+  ul.patrons li {
+    padding: 10px 12px; margin-bottom: 8px; font-size: 14px; color: #e8eef7;
+    background: #0d1524; border-left: 3px solid #ffd166;
+  }
+  .empty { color: #8fa6c4; font-size: 13px; }
+  a.back { color: #7fc8ff; font-size: 13px; }
+  a { color: #7fc8ff; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Спасибо за поддержку</h1>
+  <p class="sub">Здесь имена тех, кто купил набор «Спасибо в титрах».</p>
+
+  <!-- Список ведётся вручную: после оплаты владелец добавляет имя сюда в течение 24 часов. -->
+  <ul class="patrons" id="patrons">
+    <!-- <li>Имя или ник</li> -->
+  </ul>
+  <p class="empty" id="empty-note">Пока список пуст — тут может оказаться твоё имя.</p>
+
+  <p>Хочешь попасть в список — <a href="shop.html">магазин</a>. Наборы с игровыми наградами тоже там.</p>
+
+  <p><a class="back" href="./">← вернуться в игру</a></p>
+</div>
+<script>
+(function () {
+  var list = document.getElementById('patrons');
+  if (list && list.children.length > 0) {
+    document.getElementById('empty-note').remove();
+  }
+})();
+</script>
+</body>
+</html>
