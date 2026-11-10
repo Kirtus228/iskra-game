@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
@@ -13,19 +13,20 @@
     color: #e8eef7; font-family: Consolas, "Courier New", monospace;
   }
   .card {
-    width: 100%; max-width: 520px; background: rgba(9, 13, 22, 0.9);
+    width: 100%; max-width: 560px; background: rgba(9, 13, 22, 0.9);
     border: 2px solid rgba(127, 200, 255, 0.28); padding: 28px;
   }
   h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: 0.04em; color: #ffd166; }
+  h2 { margin: 22px 0 8px; font-size: 15px; letter-spacing: 0.04em; color: #7fc8ff; }
   .sub { margin: 0 0 18px; font-size: 13px; color: #8fa6c4; }
   p { font-size: 14px; line-height: 1.55; color: #cfe3ff; }
   .btn {
-    display: block; width: 100%; margin: 18px 0 10px; padding: 14px;
+    display: block; width: 100%; margin: 14px 0 8px; padding: 14px;
     text-align: center; text-decoration: none; font-weight: 700; font-size: 15px;
     color: #1a1206; background: #ffd166; border: 2px solid #b98a1f;
   }
   .btn.secondary { color: #cfe3ff; background: #16202f; border-color: #2b3c58; }
-  .btn.disabled { opacity: 0.55; pointer-events: none; }
+  .btn.disabled { opacity: 0.5; pointer-events: none; }
   .note { font-size: 12px; color: #8fa6c4; }
   a.back { color: #7fc8ff; font-size: 13px; }
   ul { padding-left: 18px; font-size: 13px; color: #cfe3ff; }
@@ -35,51 +36,48 @@
 <body>
 <div class="card">
   <h1>Поддержать «Искру»</h1>
-  <p class="sub">Игра бесплатная. Если хочется помочь разработке — вот способы.</p>
+  <p class="sub">Игра бесплатная и остаётся бесплатной. Есть два способа помочь разработке.</p>
 
-  <p>Сейчас в планах второй эпизод и новые головоломки. Донат идёт на ассеты, музыку и время разработки.</p>
+  <h2>1. Купить набор</h2>
+  <p>Самый полезный вариант: получаешь конкретный набор в игре, разработка получает деньги.
+     В наборах — окраски, корпуса и болтики, то есть только внешний вид и внутриигровая валюта.</p>
+  <a class="btn" href="shop.html">Открыть магазин</a>
 
-  <!-- Ссылка на оплату подставляется здесь. Сгенерируйте в RollyPay ссылку с нужной суммой
-       и замените значение href и текст суммы. -->
-  <a class="btn disabled" id="pay-btn" href="#" data-amount="50">Поддержать на 50 ₽</a>
-  <a class="btn secondary" id="pay-btn-2" href="#" data-amount="150">Поддержать на 150 ₽</a>
+  <h2>2. Просто донат</h2>
+  <p>Если ничего покупать не хочется, а поддержать хочется — донат без условий и без наград.
+     Платёж проходит на стороне платформы, реквизиты карты вводятся там и нам не передаются.</p>
+  <a class="btn secondary disabled" id="boosty-btn" href="#">Донат на Boosty — скоро</a>
+  <p class="note" id="boosty-note">Ссылка на Boosty появится после подключения. Пока можно написать на почту.</p>
 
-  <p class="note" id="pay-note">
-    Кнопка заработает после подключения платёжной ссылки RollyPay (СБП, карты, крипта).
-  </p>
-
-  <p class="note" style="margin-top:18px">Что даёт поддержка:</p>
+  <h2>Что это оплачивает</h2>
   <ul>
     <li>новые уровни и головоломки;</li>
-    <li>музыка и звуки вместо синтезированных;</li>
+    <li>музыку и звуки;</li>
     <li>больше корпусов и окрасок в мастерской.</li>
   </ul>
 
-  <p class="note">Поддержка добровольная и не влияет на прохождение — игра не продаёт преимуществ.</p>
+  <p class="note">Покупки и донаты не влияют на прохождение: уровни открываются только игрой.</p>
 
   <a class="back" href="./">← вернуться в игру</a>
 
   <div class="legal" id="legal">
-    <p class="note" style="margin-top:22px;color:#cfe3ff">Условия поддержки</p>
+    <p class="note" style="margin-top:22px;color:#cfe3ff">Условия</p>
     <p class="note">
-      Донат — добровольный платёж за развитие игры. Это не покупка товара и не подписка:
-      вы ничего не получаете взамен и можете не платить — игра остаётся бесплатной.
-      Платёж принимает платёжный сервис RollyPay (оператор — OMNEXIS TECH LTD, Великобритания)
-      через свою платёжную форму; реквизиты карты вводятся на стороне RollyPay и нам не передаются.
+      Наборы — это цифровой товар с фиксированной ценой: состав и цена указаны на странице
+      <a href="shop.html" style="color:#7fc8ff">магазина</a>, выдача — промокодом. Пока промокод
+      не активирован, покупку можно вернуть в течение 10 рабочих дней.
+      Донат — добровольный платёж за развитие игры, он не является покупкой и ничего не открывает.
     </p>
     <p class="note">
-      Получатель — самозанятый (плательщик налога на профессиональный доход). Чек формируется
+      Продавец — самозанятый (плательщик налога на профессиональный доход, НПД). Чек формируется
       в приложении «Мой налог» и приходит на указанную при оплате почту или телефон.
     </p>
     <p class="note">
-      Возврат: если платёж прошёл дважды или по ошибке — напишите на
+      Возврат: если платёж прошёл дважды или по ошибке — напиши на
       <span style="color:#ffd166">Kirill.azs.090@gmail.com</span> с датой, суммой и последними
-      4 цифрами карты; вернём в течение 10 рабочих дней тем же способом.
-      Добровольные донаты за уже оказанную поддержку по закону возврату не подлежат, но спорные
-      случаи разбираем вручную.
+      4 цифрами карты; вернём в течение 10 рабочих дней тем же способом. Спорные случаи разбираем вручную.
     </p>
     <p class="note">
-      Поддержка не даёт игровых преимуществ, не открывает уровни и не влияет на прохождение.
       Контакт: <span style="color:#ffd166">Kirill.azs.090@gmail.com</span>
     </p>
   </div>
@@ -87,22 +85,16 @@
 
 <script>
 (function () {
-  // Подставьте сюда ссылки из RollyPay (каждая ссылка — под конкретную сумму, срок жизни ограничен).
-  var LINKS = {
-    50: '', // 'https://pay.rollypay.io/pay/XXXXXXXX'
-    150: ''
-  };
-  Object.keys(LINKS).forEach(function (amount) {
-    var url = LINKS[amount];
-    if (!url) return;
-    var btn = document.querySelector('[data-amount="' + amount + '"]');
-    if (!btn) return;
-    btn.href = url;
+  // Вставь сюда ссылку на свой профиль Boosty (boosty.to/...) — кнопка включится сама.
+  var BOOSTY_URL = '';
+  if (BOOSTY_URL) {
+    var btn = document.getElementById('boosty-btn');
+    btn.href = BOOSTY_URL;
     btn.classList.remove('disabled');
-  });
-  var note = document.getElementById('pay-note');
-  var any = Object.keys(LINKS).some(function (k) { return !!LINKS[k]; });
-  if (any && note) note.textContent = 'Оплата проходит на стороне RollyPay: СБП, карты РФ, крипта. Чек приходит по НПД.';
+    btn.textContent = 'Донат на Boosty';
+    document.getElementById('boosty-note').textContent =
+      'Платёж проходит на стороне Boosty. Чек по НПД формируется отдельно.';
+  }
 })();
 </script>
 </body>
