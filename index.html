@@ -1,140 +1,114 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0d14" />
-  <title>Искра: проект «Ракета»</title>
-  <link rel="stylesheet" href="style.css?v=20261110-2" />
-  <script src="https://yandex.ru/games/sdk/v2"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="«Искра: проект «Ракета»» — бесплатный браузерный пластилиновый платформер с головоломками. Играть, магазин наборов, документация и поддержка проекта." />
+<meta name="theme-color" content="#0b0d14" />
+<title>Искра: проект «Ракета» — главная</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; justify-content: center;
+    padding: 28px 20px 40px; background: radial-gradient(circle at 50% 12%, #131a2b, #05070c 68%);
+    color: #e8eef7; font-family: Consolas, "Courier New", monospace;
+  }
+  .wrap { width: 100%; max-width: 860px; }
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
+  .logo { font-size: 26px; font-weight: 700; letter-spacing: 0.14em; color: #ffd166; }
+  .logo-sub { font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #8fb0d6; }
+  .badge {
+    margin-left: auto; padding: 5px 10px; font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #062012; background: #7ce0a3;
+  }
+  h1 { margin: 0 0 10px; font-size: 30px; line-height: 1.2; color: #e8eef7; }
+  .lead { margin: 0 0 22px; font-size: 15px; line-height: 1.6; color: #cfe3ff; max-width: 640px; }
+  .play {
+    display: inline-block; margin: 0 0 30px; padding: 16px 44px; text-decoration: none;
+    font-weight: 700; font-size: 17px; color: #1a1206; background: #ffd166;
+    border: 2px solid #b98a1f;
+  }
+  .play:hover { background: #ffdd8a; }
+  .menu-title { margin: 0 0 12px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #6d829e; }
+  .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .item {
+    display: block; padding: 18px 20px; text-decoration: none; color: inherit;
+    background: rgba(9, 13, 22, 0.9); border: 2px solid #24344d;
+  }
+  .item:hover { border-color: #7fc8ff; }
+  .item h2 { margin: 0 0 6px; font-size: 16px; color: #e8eef7; }
+  .item p { margin: 0; font-size: 13px; line-height: 1.5; color: #8fa6c4; }
+  .item .num { color: #7fc8ff; font-size: 12px; margin-right: 6px; }
+  .about { margin: 34px 0 0; padding: 20px 22px; background: rgba(9, 13, 22, 0.9); border: 2px solid #24344d; }
+  .about h2 { margin: 0 0 10px; font-size: 15px; letter-spacing: 0.04em; color: #7fc8ff; }
+  .about ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: #cfe3ff; }
+  footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid #1d2a3d; font-size: 12px; line-height: 1.7; color: #6d829e; }
+  footer a { color: #7fc8ff; }
+  .links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; font-size: 13px; }
+</style>
 </head>
 <body>
-  <div id="app">
-    <canvas id="game"></canvas>
+<div class="wrap">
+  <header>
+    <div class="logo">ИСКРА</div>
+    <div class="logo-sub">проект «Ракета»</div>
+    <div class="badge">бесплатно · без рекламы</div>
+  </header>
 
-    <div id="hud" class="hidden">
-      <div class="hud-top">
-        <div class="pill"><span class="lbl">болты</span><span id="hud-bolts">0</span></div>
-        <div class="pill"><span class="lbl">детали</span><span id="hud-parts">0/3</span></div>
-      </div>
+  <h1>Робот №7 собирает ракету в подвале лаборатории</h1>
+  <p class="lead">
+    Браузерный платформер с головоломками: два эпизода, шесть уровней, пять механических
+    головоломок и две концовки. Ничего скачивать не нужно — игра открывается прямо в браузере,
+    на компьютере и на телефоне.
+  </p>
+
+  <a class="play" href="game.html">Играть</a>
+
+  <p class="menu-title">Разделы проекта</p>
+  <nav class="menu">
+    <a class="item" href="game.html">
+      <h2><span class="num">01</span>Игра</h2>
+      <p>Открыть игру прямо в браузере. Прогресс сохраняется в браузере.</p>
+    </a>
+    <a class="item" href="shop.html">
+      <h2><span class="num">02</span>Магазин</h2>
+      <p>Наборы для внешнего вида робота: «Космонавт» 150 ₽, «Инженер» 300 ₽, «Спасибо в титрах» 50 ₽.</p>
+    </a>
+    <a class="item" href="docs.html">
+      <h2><span class="num">03</span>Документация</h2>
+      <p>Как играть, как работают наборы и промокоды, оплата, возвраты, реквизиты продавца.</p>
+    </a>
+    <a class="item" href="donate.html">
+      <h2><span class="num">04</span>Поддержка</h2>
+      <p>Донат картой без регистрации, Boosty и условия поддержки проекта.</p>
+    </a>
+  </nav>
+
+  <section class="about">
+    <h2>Что внутри игры</h2>
+    <ul>
+      <li>два эпизода: подвал лаборатории и орбитальная станция «Маяк»;</li>
+      <li>шесть уровней, платформы, невесомость, лазерные затворы и ловушки;</li>
+      <li>пять головоломок с муфтами энергосети, чипами питания и пультом реактора;</li>
+      <li>мастерская: корпуса и окраски робота за болты;</li>
+      <li>сохранение прогресса и выбор уже пройденного уровня;</li>
+      <li>покупки не влияют на прохождение — все уровни открываются только игрой.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="game.html">Играть</a>
+      <a href="shop.html">Магазин</a>
+      <a href="docs.html">Документация</a>
+      <a href="donate.html">Поддержка</a>
+      <a href="thanks.html">Кто поддержал</a>
     </div>
-
-    <div id="menu" class="overlay">
-      <div class="card">
-        <div class="logo">ИСКРА</div>
-        <div class="logo-sub">проект «Ракета»</div>
-        <p class="sub">Робот №7 по имени Искра месяц собирал ракету в подвале лаборатории. Осталось немного: детали, схема питания — и старт.</p>
-        <div class="row-stats">
-          <div><span id="menu-best">0</span><small>шагов</small></div>
-          <div><span id="menu-bolts">0</span><small>болтиков</small></div>
-        </div>
-        <button id="btn-play" class="primary">Продолжить</button>
-        <button id="btn-levels" class="ghost">Выбор уровня</button>
-        <button id="btn-skins" class="ghost">Внешний вид робота</button>
-        <button id="btn-restart" class="ghost">Начать заново</button>
-        <button id="btn-bonus" class="ghost ad-line hidden">Бонус: +50 болтиков <small>за рекламу</small></button>
-        <p class="hint">Клавиши ← → или A D — идти, пробел — прыжок. На телефоне кнопки внизу экрана.</p>
-        <button id="btn-mute" class="tiny-btn">звук: вкл</button>
-        <button id="btn-code" class="ghost" type="button">Ввести промокод</button>
-        <button id="btn-donate" class="ghost hidden" type="button">Поддержать проект</button>
-        <p id="patron-line" class="hint patron hidden">Спасибо за поддержку проекта</p>
-      </div>
-    </div>
-
-    <div id="levels" class="overlay hidden">
-      <div class="card">
-        <h2>Выбор уровня</h2>
-        <p class="sub">Пройденные уровни открыты. Замок снимается, когда доходишь до главы в сюжете.</p>
-        <div id="levels-list" class="levels-list"></div>
-        <button id="btn-levels-close" class="ghost">Назад</button>
-      </div>
-    </div>
-
-    <div id="skins" class="overlay hidden">
-      <div class="card">
-        <h2>Мастерская</h2>
-        <p class="sub">Трать болты на корпус и окраску. Внешний вид не влияет на физику и прыжки.</p>
-        <div class="skin-label">Корпус</div>
-        <div id="skin-shapes" class="skin-list"></div>
-        <div class="skin-label">Окраска</div>
-        <div id="skin-colors" class="skin-list"></div>
-        <button id="btn-skins-close" class="ghost">Назад</button>
-      </div>
-    </div>
-
-    <div id="puzzle-ui" class="hidden">
-      <h2 id="pz-title"></h2>
-      <p id="pz-sub"></p>
-      <div id="pz-cond"></div>
-    </div>
-
-    <div id="finale-ui" class="hidden">
-      <h2 id="fin-title"></h2>
-      <p id="fin-sub"></p>
-      <p class="fin-hint">тап — пропустить</p>
-    </div>
-
-    <div id="pz-back" class="hidden">
-      <button id="btn-pz-back">В меню</button>
-    </div>
-
-    <div id="choice" class="overlay hidden">
-      <div class="card">
-        <h2>Топлива хватит на одно</h2>
-        <p class="sub">Искра держит руку над переключателем. Второй робот моргает индикатором за переборкой.</p>
-        <button id="btn-choice-friend" class="primary">Забрать второго робота</button>
-        <button id="btn-choice-alone" class="ghost">Улететь одному</button>
-      </div>
-    </div>
-
-    <div id="story" class="overlay hidden">
-      <div class="card story">
-        <div id="story-tag" class="tag"></div>
-        <h2 id="story-title"></h2>
-        <p id="story-text"></p>
-        <button id="btn-story" class="primary">Дальше</button>
-      </div>
-    </div>
-
-    <div id="dead" class="overlay hidden">
-      <div class="card">
-        <h2>Искра сломался</h2>
-        <p class="sub" id="dead-text">Корпус повреждён, но ядро цело.</p>
-        <button id="btn-continue" class="primary ad-line hidden">Продолжить с контрольной точки <small>за рекламу</small></button>
-        <button id="btn-retry" class="primary">С начала уровня</button>
-        <button id="btn-dead-home" class="ghost">В меню</button>
-      </div>
-    </div>
-
-    <div id="pausemenu" class="overlay hidden">
-      <div class="card">
-        <h2>Пауза</h2>
-        <button id="btn-resume" class="primary">Продолжить</button>
-        <button id="btn-pause-home" class="ghost">В меню</button>
-        <p class="hint">Управление: ← → идти, прыжок — пробел или кнопка справа.</p>
-      </div>
-    </div>
-
-    <div id="code" class="overlay hidden">
-      <div class="card">
-        <h2>Промокод</h2>
-        <p class="sub">Код из письма после покупки набора. Одноразовый и работает на этом устройстве.</p>
-        <input id="code-input" class="code-input" type="text" inputmode="text" autocomplete="off"
-               autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="ISKRA-K-7K3M-9Q2F" />
-        <button id="btn-code-ok" class="primary">Активировать</button>
-        <p id="code-msg" class="hint"></p>
-        <p class="hint">Купить набор — <a class="link" href="shop.html">магазин</a></p>
-        <button id="btn-code-close" class="ghost">Назад</button>
-      </div>
-    </div>
-
-    <button id="btn-pause" class="tiny-btn pause-btn hidden">II</button>
-  </div>
-  <script src="game.js?v=20261110-2"></script>
+    Продавец — самозанятый (плательщик налога на профессиональный доход, НПД), ИНН 220806972786.
+    Чек формируется в приложении «Мой налог».<br />
+    Контакт: <a href="mailto:Kirill.azs.090@gmail.com">Kirill.azs.090@gmail.com</a>
+  </footer>
+</div>
 </body>
 </html>
-
-
-
-
-
