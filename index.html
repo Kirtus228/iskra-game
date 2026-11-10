@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0d14" />
   <title>Искра: проект «Ракета»</title>
-  <link rel="stylesheet" href="style.css?v=20261107-1" />
+  <link rel="stylesheet" href="style.css?v=20261110-2" />
   <script src="https://yandex.ru/games/sdk/v2"></script>
 </head>
 <body>
@@ -35,7 +35,9 @@
         <button id="btn-bonus" class="ghost ad-line hidden">Бонус: +50 болтиков <small>за рекламу</small></button>
         <p class="hint">Клавиши ← → или A D — идти, пробел — прыжок. На телефоне кнопки внизу экрана.</p>
         <button id="btn-mute" class="tiny-btn">звук: вкл</button>
+        <button id="btn-code" class="ghost" type="button">Ввести промокод</button>
         <button id="btn-donate" class="ghost hidden" type="button">Поддержать проект</button>
+        <p id="patron-line" class="hint patron hidden">Спасибо за поддержку проекта</p>
       </div>
     </div>
 
@@ -113,9 +115,22 @@
       </div>
     </div>
 
+    <div id="code" class="overlay hidden">
+      <div class="card">
+        <h2>Промокод</h2>
+        <p class="sub">Код из письма после покупки набора. Одноразовый и работает на этом устройстве.</p>
+        <input id="code-input" class="code-input" type="text" inputmode="text" autocomplete="off"
+               autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="ISKRA-K-7K3M-9Q2F" />
+        <button id="btn-code-ok" class="primary">Активировать</button>
+        <p id="code-msg" class="hint"></p>
+        <p class="hint">Купить набор — <a class="link" href="shop.html">магазин</a></p>
+        <button id="btn-code-close" class="ghost">Назад</button>
+      </div>
+    </div>
+
     <button id="btn-pause" class="tiny-btn pause-btn hidden">II</button>
   </div>
-  <script src="game.js?v=20261110-1"></script>
+  <script src="game.js?v=20261110-2"></script>
 </body>
 </html>
 
