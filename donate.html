@@ -17,7 +17,7 @@
     border: 2px solid rgba(127, 200, 255, 0.28); padding: 28px;
   }
   h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: 0.04em; color: #ffd166; }
-  h2 { margin: 22px 0 8px; font-size: 15px; letter-spacing: 0.04em; color: #7fc8ff; }
+  h2 { margin: 24px 0 8px; font-size: 15px; letter-spacing: 0.04em; color: #7fc8ff; }
   .sub { margin: 0 0 18px; font-size: 13px; color: #8fa6c4; }
   p { font-size: 14px; line-height: 1.55; color: #cfe3ff; }
   .btn {
@@ -28,6 +28,10 @@
   .btn.secondary { color: #cfe3ff; background: #16202f; border-color: #2b3c58; }
   .btn.disabled { opacity: 0.5; pointer-events: none; }
   .note { font-size: 12px; color: #8fa6c4; }
+  .tag {
+    display: inline-block; margin-left: 8px; padding: 2px 8px; font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #062012; background: #7ce0a3;
+  }
   a.back { color: #7fc8ff; font-size: 13px; }
   ul { padding-left: 18px; font-size: 13px; color: #cfe3ff; }
   code { color: #ffd166; }
@@ -36,18 +40,24 @@
 <body>
 <div class="card">
   <h1>Поддержать «Искру»</h1>
-  <p class="sub">Игра бесплатная и остаётся бесплатной. Есть два способа помочь разработке.</p>
+  <p class="sub">Игра бесплатная и остаётся бесплатной. Три способа помочь разработке.</p>
 
   <h2>1. Купить набор</h2>
   <p>Самый полезный вариант: получаешь конкретный набор в игре, разработка получает деньги.
-     В наборах — окраски, корпуса и болтики, то есть только внешний вид и внутриигровая валюта.</p>
+     В наборах — окраски, корпуса и болтики.</p>
   <a class="btn" href="shop.html">Открыть магазин</a>
 
-  <h2>2. Просто донат</h2>
-  <p>Если ничего покупать не хочется, а поддержать хочется — донат без условий и без наград.
-     Платёж проходит на стороне платформы, реквизиты карты вводятся там и нам не передаются.</p>
-  <a class="btn secondary disabled" id="boosty-btn" href="#">Донат на Boosty — скоро</a>
-  <p class="note" id="boosty-note">Ссылка на Boosty появится после подключения. Пока можно написать на почту.</p>
+  <h2>2. Донат картой <span class="tag">без регистрации</span></h2>
+  <p>Если покупать ничего не хочется: открывается страница оплаты CloudTips, платишь картой
+     или через СБП. Аккаунт для этого не нужен — вводишь сумму и платишь.</p>
+  <a class="btn secondary disabled" id="cloudtips-btn" href="#">Донат картой — скоро</a>
+  <p class="note" id="cloudtips-note">Кнопка включится после регистрации в CloudTips (сервис Т-Банка).</p>
+
+  <h2>3. Донат на Boosty</h2>
+  <p>Если у тебя уже есть аккаунт Boosty — можно поддержать там. Boosty требует войти,
+     поэтому этот способ вторым номером.</p>
+  <a class="btn secondary" id="boosty-btn" href="https://boosty.to/gunter152/donate">Донат на Boosty</a>
+  <p class="note" id="boosty-note">Платёж проходит на стороне Boosty. Чек по НПД формируется отдельно.</p>
 
   <h2>Что это оплачивает</h2>
   <ul>
@@ -63,7 +73,7 @@
   <div class="legal" id="legal">
     <p class="note" style="margin-top:22px;color:#cfe3ff">Условия</p>
     <p class="note">
-      Наборы — это цифровой товар с фиксированной ценой: состав и цена указаны на странице
+      Наборы — цифровой товар с фиксированной ценой: состав и цена указаны на странице
       <a href="shop.html" style="color:#7fc8ff">магазина</a>, выдача — промокодом. Пока промокод
       не активирован, покупку можно вернуть в течение 10 рабочих дней.
       Донат — добровольный платёж за развитие игры, он не является покупкой и ничего не открывает.
@@ -85,15 +95,17 @@
 
 <script>
 (function () {
-  // Вставь сюда ссылку на свой профиль Boosty (boosty.to/...) — кнопка включится сама.
-  var BOOSTY_URL = 'https://boosty.to/gunter152/donate';
-  if (BOOSTY_URL) {
-    var btn = document.getElementById('boosty-btn');
-    btn.href = BOOSTY_URL;
+  // Ссылка из личного кабинета CloudTips (lk.cloudtips.ru) — вида https://cloudtips.ru/@имя
+  // или персональная ссылка на оплату. Пока пусто — кнопка выключена.
+  var CLOUDTIPS_URL = '';
+
+  if (CLOUDTIPS_URL) {
+    var btn = document.getElementById('cloudtips-btn');
+    btn.href = CLOUDTIPS_URL;
     btn.classList.remove('disabled');
-    btn.textContent = 'Донат на Boosty';
-    document.getElementById('boosty-note').textContent =
-      'Платёж проходит на стороне Boosty. Чек по НПД формируется отдельно.';
+    btn.textContent = 'Донат картой';
+    document.getElementById('cloudtips-note').textContent =
+      'Оплата проходит на стороне CloudTips. Регистрация не нужна, чек по НПД придёт отдельно.';
   }
 })();
 </script>
