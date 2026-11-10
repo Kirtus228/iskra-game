@@ -225,6 +225,42 @@ button.ghost {
   color: #6d829e;
 }
 
+.hint.good {
+  color: #7ce0a3;
+}
+
+.hint.bad {
+  color: #ff8a8a;
+}
+
+.patron {
+  margin-top: 8px;
+  color: #ffd166;
+}
+
+a.link {
+  color: #7fc8ff;
+}
+
+.code-input {
+  display: block;
+  width: 100%;
+  margin: 6px 0 10px;
+  padding: 12px 14px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: #e8eef7;
+  background: #0d1524;
+  border: 3px solid #2b3c58;
+  outline: none;
+}
+
+.code-input:focus {
+  border-color: #7fc8ff;
+}
+
 /* ---------- Story ---------- */
 
 .card.story {
