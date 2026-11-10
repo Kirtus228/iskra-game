@@ -88,6 +88,8 @@
     started: false,
     skin: { shape: 'standard', color: 'blue' },
     bought: { shapes: ['standard'], colors: ['blue'] },
+    usedCodes: [],
+    patron: false,
   });
   let save = freshSave();
 
@@ -1323,6 +1325,8 @@
     ui.pauseMenu.classList.add('hidden');
     ui.menuBest.textContent = String(save.best);
     ui.menuBolts.textContent = String(save.bolts);
+    const patronLine = document.getElementById('patron-line');
+    if (patronLine) patronLine.classList.toggle('hidden', !save.patron);
     document.getElementById('btn-mute').textContent = 'звук: ' + (save.muted ? 'выкл' : 'вкл');
   }
 
@@ -1349,6 +1353,130 @@
       game.paused = true;
     }
   }
+
+  // ---------- промокоды ----------
+  // Код выдаётся после оплаты набора в магазине (shop.html).
+  // Формат: ISKRA-K-7K3M-9Q2F, где K — «Космонавт», I — «Инженер», P — «Спасибо в титрах».
+  // Проверка офлайн: контрольная сумма считается от секрета и полезной части кода,
+  // случайно набранный код не пройдёт. Секрет лежит в этом файле, то есть при желании
+  // его можно вытащить — для наборов за 150–300 ₽ этого достаточно; повторная
+  // активация одного и того же кода на устройстве заблокирована.
+  const PROMO_SECRET = 'iskra-rocket-2026-11';
+  const PROMO_ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+  function promoHash(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+
+  function promoSuffix(tier, payload) {
+    let n = promoHash(PROMO_SECRET + '|' + tier + '|' + payload);
+    let out = '';
+    for (let i = 0; i < 4; i++) {
+      out += PROMO_ALPHA[n & 31];
+      n = Math.floor(n / 32);
+    }
+    return out;
+  }
+
+  function promoParse(raw) {
+    let s = String(raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (s.startsWith('ISKRA')) s = s.slice(5);
+    if (s.length !== 9) return null;
+    const tier = s[0];
+    const payload = s.slice(1, 5);
+    if ('KIP'.indexOf(tier) < 0) return null;
+    if (promoSuffix(tier, payload) !== s.slice(5)) return null;
+    return { tier: tier, payload: payload };
+  }
+
+  function promoApply(tier) {
+    const got = [];
+    if (tier === 'K' || tier === 'I') {
+      if (tier === 'I') {
+        for (const id of Object.keys(SKINS)) {
+          if (save.bought.shapes.indexOf(id) < 0) {
+            save.bought.shapes.push(id);
+            got.push('корпус «' + SKINS[id].name + '»');
+          }
+        }
+      }
+      for (const id of Object.keys(COLORS)) {
+        if (save.bought.colors.indexOf(id) < 0) {
+          save.bought.colors.push(id);
+          got.push('окраска «' + COLORS[id].name + '»');
+        }
+      }
+      const bolts = tier === 'K' ? 300 : 1000;
+      save.bolts += bolts;
+      got.push(bolts + ' болтиков');
+    } else {
+      save.patron = true;
+      got.push('спасибо за поддержку');
+    }
+    persist();
+    updateHud();
+    ui.menuBolts.textContent = String(save.bolts);
+    return got;
+  }
+
+  const codeOverlay = document.getElementById('code');
+  const codeInput = document.getElementById('code-input');
+  const codeMsg = document.getElementById('code-msg');
+
+  function showCodeMsg(text, kind) {
+    codeMsg.className = 'hint' + (kind ? ' ' + kind : '');
+    codeMsg.textContent = text;
+  }
+
+  function openCodes() {
+    sfx.ui();
+    codeInput.value = '';
+    showCodeMsg('', '');
+    codeOverlay.classList.remove('hidden');
+    setTimeout(() => codeInput.focus(), 30);
+  }
+
+  function closeCodes() {
+    sfx.ui();
+    codeOverlay.classList.add('hidden');
+  }
+
+  function submitCode() {
+    const parsed = promoParse(codeInput.value);
+    if (!parsed) {
+      showCodeMsg('Код не подошёл. Он выглядит так: ISKRA-K-7K3M-9Q2F', 'bad');
+      return;
+    }
+    const key = parsed.tier + parsed.payload;
+    if (!Array.isArray(save.usedCodes)) save.usedCodes = [];
+    if (save.usedCodes.indexOf(key) >= 0) {
+      showCodeMsg('Этот код уже активирован на этом устройстве.', 'bad');
+      return;
+    }
+    save.usedCodes.push(key);
+    const got = promoApply(parsed.tier);
+    persist();
+    sfx.coin();
+    renderSkins();
+    const patronLine = document.getElementById('patron-line');
+    if (patronLine) patronLine.classList.toggle('hidden', !save.patron);
+    showCodeMsg('Готово: ' + got.join(', ') + '.', 'good');
+  }
+
+  document.getElementById('btn-code').addEventListener('click', openCodes);
+  document.getElementById('btn-code-close').addEventListener('click', closeCodes);
+  document.getElementById('btn-code-ok').addEventListener('click', submitCode);
+  codeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submitCode();
+    }
+  });
 
   // ---------- кнопки UI ----------
   document.getElementById('btn-play').addEventListener('click', () => {
