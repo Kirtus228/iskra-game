@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Документация — «Искра»</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; justify-content: center;
+    padding: 28px 20px 40px; background: radial-gradient(circle at 50% 12%, #131a2b, #05070c 68%);
+    color: #e8eef7; font-family: Consolas, "Courier New", monospace;
+  }
+  .wrap { width: 100%; max-width: 780px; }
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+  .logo { font-size: 24px; font-weight: 700; letter-spacing: 0.14em; color: #ffd166; }
+  .logo-sub { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #8fb0d6; }
+  h1 { margin: 0 0 8px; font-size: 26px; color: #e8eef7; }
+  .lead { margin: 0 0 20px; font-size: 14px; line-height: 1.6; color: #8fa6c4; }
+  h2 { margin: 30px 0 10px; font-size: 17px; color: #7fc8ff; }
+  h3 { margin: 18px 0 6px; font-size: 14px; color: #e8eef7; }
+  p, li { font-size: 14px; line-height: 1.65; color: #cfe3ff; }
+  ul, ol { padding-left: 20px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 6px; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #1d2a3d; color: #cfe3ff; }
+  th { color: #8fa6c4; font-weight: 400; }
+  code { color: #ffd166; }
+  a { color: #7fc8ff; }
+  .toc {
+    padding: 16px 20px; margin: 0 0 8px; background: rgba(9, 13, 22, 0.9); border: 2px solid #24344d;
+  }
+  .toc ol { margin: 0; padding-left: 20px; font-size: 13px; }
+  .toc li { margin-bottom: 4px; }
+  .note { font-size: 12px; color: #8fa6c4; }
+  .back { display: inline-block; margin-top: 22px; font-size: 13px; }
+  footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid #1d2a3d; font-size: 12px; color: #6d829e; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">ИСКРА</div>
+    <div class="logo-sub">проект «Ракета»</div>
+  </header>
+
+  <h1>Документация проекта</h1>
+  <p class="lead">Всё, что нужно знать об игре, покупках и поддержке. Разделы короткие — по делу.</p>
+
+  <div class="toc">
+    <ol>
+      <li><a href="#about">О проекте</a></li>
+      <li><a href="#play">Как играть</a></li>
+      <li><a href="#shop">Магазин и наборы</a></li>
+      <li><a href="#promo">Промокоды</a></li>
+      <li><a href="#pay">Оплата и чеки</a></li>
+      <li><a href="#refund">Возвраты</a></li>
+      <li><a href="#tech">Технические требования</a></li>
+      <li><a href="#support">Поддержка проекта</a></li>
+      <li><a href="#contacts">Контакты и реквизиты</a></li>
+    </ol>
+  </div>
+
+  <h2 id="about">1. О проекте</h2>
+  <p>
+    «Искра: проект «Ракета»» — браузерный двумерный платформер с головоломками. Робот №7 по имени Искра
+    собирает ракету в подвале закрытой лаборатории, а затем отправляется на орбитальную станцию «Маяк».
+  </p>
+  <ul>
+    <li>два эпизода, шесть уровней, пять механических головоломок, две концовки;</li>
+    <li>графика рисуется кодом прямо в canvas — внешних картинок нет;</li>
+    <li>игра бесплатная, без рекламы и без подписок;</li>
+    <li>прохождение не зависит от покупок: платные наборы дают только внешний вид и внутриигровую валюту.</li>
+  </ul>
+
+  <h2 id="play">2. Как играть</h2>
+  <p>Открывается на компьютере и на телефоне, установка не нужна.</p>
+  <table>
+    <tr><th>Действие</th><th>Клавиши</th></tr>
+    <tr><td>идти</td><td>← → или A D</td></tr>
+    <tr><td>прыжок</td><td>пробел</td></tr>
+    <tr><td>пауза</td><td>Esc</td></tr>
+  </table>
+  <p>На телефоне внизу экрана появляются кнопки: влево, вправо, прыжок.</p>
+  <h3>Сохранение прогресса</h3>
+  <p>
+    Прогресс, болтики, внешний вид и активированные промокоды хранятся в браузере игрока
+    (<code>localStorage</code>). Если очистить данные сайта или зайти с другого устройства,
+    прогресс начнётся заново. Сохранение не привязано к аккаунту.
+  </p>
+
+  <h2 id="shop">3. Магазин и наборы</h2>
+  <p>Наборы — цифровой товар с фиксированной ценой. Состав каждого указан на странице <a href="shop.html">магазина</a>.</p>
+  <table>
+    <tr><th>Набор</th><th>Цена</th><th>Что входит</th></tr>
+    <tr><td>«Космонавт»</td><td>150 ₽</td><td>все окраски робота (4 шт.) + 300 болтиков</td></tr>
+    <tr><td>«Инженер»</td><td>300 ₽</td><td>все корпуса (3 шт.) + все окраски + 1000 болтиков</td></tr>
+    <tr><td>«Спасибо в титрах»</td><td>50 ₽</td><td>имя или ник в <a href="thanks.html">списке поддержавших</a>, публикуется в течение 24 часов</td></tr>
+  </table>
+  <p class="note">Болтики можно заработать и в самой игре — наборы не обязательны для прохождения.</p>
+
+  <h2 id="promo">4. Промокоды</h2>
+  <p>После оплаты покупатель получает промокод вида <code>ISKRA-K-7K3M-9Q2F</code>.</p>
+  <ol>
+    <li>Открыть игру: <a href="game.html">game.html</a>.</li>
+    <li>В главном меню нажать «Ввести промокод».</li>
+    <li>Вставить код и нажать «Активировать» — набор появится в мастерской сразу.</li>
+  </ol>
+  <ul>
+    <li>промокод одноразовый: повторно активировать его на устройстве нельзя;</li>
+    <li>код проверяется в браузере, интернет для активации не обязателен;</li>
+    <li>если код не подошёл — напишите на <a href="mailto:Kirill.azs.090@gmail.com">почту</a>, выдадим новый.</li>
+  </ul>
+
+  <h2 id="pay">5. Оплата и чеки</h2>
+  <p>Оплата проходит через платёжный сервис, ссылку на оплату присылаем в ответ на заявку.</p>
+  <ul>
+    <li>Продавец — самозанятый (плательщик НПД), поэтому на каждую покупку формируется чек в приложении «Мой налог»;</li>
+    <li>чек приходит на почту или телефон, указанные при оплате;</li>
+    <li>реквизиты банковской карты вводятся на стороне платёжного сервиса и продавцу не передаются.</li>
+  </ul>
+
+  <h2 id="refund">6. Возвраты</h2>
+  <ul>
+    <li>Пока промокод не активирован — возврат в течение 10 рабочих дней с момента оплаты;</li>
+    <li>для возврата напишите на <a href="mailto:Kirill.azs.090@gmail.com">Kirill.azs.090@gmail.com</a>:
+        дата платежа, сумма, название набора и последние 4 цифры карты;</li>
+    <li>возврат идёт тем же способом, которым была оплата;</li>
+    <li>после активации промокода возврат не производится, спорные случаи разбираются индивидуально.</li>
+  </ul>
+
+  <h2 id="tech">7. Технические требования</h2>
+  <ul>
+    <li>любой современный браузер: Chrome, Edge, Firefox, Safari, Яндекс Браузер;</li>
+    <li>компьютер или телефон, установка не требуется;</li>
+    <li>для игры интернет нужен только в момент загрузки страницы;</li>
+    <li>если игра не открывается — обновите страницу с Ctrl+F5 и проверьте, что не включён блокировщик скриптов.</li>
+  </ul>
+
+  <h2 id="support">8. Поддержка проекта</h2>
+  <p>
+    Кроме наборов есть добровольная поддержка: донат картой без регистрации (CloudTips) и Boosty.
+    Способы и условия — на странице <a href="donate.html">поддержки</a>. Донат ничего не открывает
+    в игре и не влияет на прохождение.
+  </p>
+
+  <h2 id="contacts">9. Контакты и реквизиты</h2>
+  <ul>
+    <li>Продавец: самозанятый (НПД), ИНН 220806972786;</li>
+    <li>Почта: <a href="mailto:Kirill.azs.090@gmail.com">Kirill.azs.090@gmail.com</a>;</li>
+    <li>Игра: <a href="game.html">страница игры</a>;</li>
+    <li>Магазин: <a href="shop.html">shop.html</a>;</li>
+    <li>Поддержка: <a href="donate.html">donate.html</a>.</li>
+  </ul>
+
+  <a class="back" href="index.html">← на главную</a>
+
+  <footer>«Искра: проект «Ракета»» · документация обновлена 10.11.2026</footer>
+</div>
+</body>
+</html>
