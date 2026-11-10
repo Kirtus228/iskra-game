@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d14" />
+  <title>Искра: проект «Ракета» — играть</title>
+  <link rel="stylesheet" href="style.css?v=20261110-2" />
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="pill"><span class="lbl">болты</span><span id="hud-bolts">0</span></div>
+        <div class="pill"><span class="lbl">детали</span><span id="hud-parts">0/3</span></div>
+      </div>
+    </div>
+
+    <div id="menu" class="overlay">
+      <div class="card">
+        <div class="logo">ИСКРА</div>
+        <div class="logo-sub">проект «Ракета»</div>
+        <p class="sub">Робот №7 по имени Искра месяц собирал ракету в подвале лаборатории. Осталось немного: детали, схема питания — и старт.</p>
+        <div class="row-stats">
+          <div><span id="menu-best">0</span><small>шагов</small></div>
+          <div><span id="menu-bolts">0</span><small>болтиков</small></div>
+        </div>
+        <button id="btn-play" class="primary">Продолжить</button>
+        <button id="btn-levels" class="ghost">Выбор уровня</button>
+        <button id="btn-skins" class="ghost">Внешний вид робота</button>
+        <button id="btn-restart" class="ghost">Начать заново</button>
+        <button id="btn-bonus" class="ghost ad-line hidden">Бонус: +50 болтиков <small>за рекламу</small></button>
+        <p class="hint">Клавиши ← → или A D — идти, пробел — прыжок. На телефоне кнопки внизу экрана.</p>
+        <button id="btn-mute" class="tiny-btn">звук: вкл</button>
+        <button id="btn-code" class="ghost" type="button">Ввести промокод</button>
+        <button id="btn-donate" class="ghost hidden" type="button">Поддержать проект</button>
+        <p id="patron-line" class="hint patron hidden">Спасибо за поддержку проекта</p>
+        <p class="hint"><a class="link" href="index.html">Главная страница проекта</a></p>
+      </div>
+    </div>
+
+    <div id="levels" class="overlay hidden">
+      <div class="card">
+        <h2>Выбор уровня</h2>
+        <p class="sub">Пройденные уровни открыты. Замок снимается, когда доходишь до главы в сюжете.</p>
+        <div id="levels-list" class="levels-list"></div>
+        <button id="btn-levels-close" class="ghost">Назад</button>
+      </div>
+    </div>
+
+    <div id="skins" class="overlay hidden">
+      <div class="card">
+        <h2>Мастерская</h2>
+        <p class="sub">Трать болты на корпус и окраску. Внешний вид не влияет на физику и прыжки.</p>
+        <div class="skin-label">Корпус</div>
+        <div id="skin-shapes" class="skin-list"></div>
+        <div class="skin-label">Окраска</div>
+        <div id="skin-colors" class="skin-list"></div>
+        <button id="btn-skins-close" class="ghost">Назад</button>
+      </div>
+    </div>
+
+    <div id="puzzle-ui" class="hidden">
+      <h2 id="pz-title"></h2>
+      <p id="pz-sub"></p>
+      <div id="pz-cond"></div>
+    </div>
+
+    <div id="finale-ui" class="hidden">
+      <h2 id="fin-title"></h2>
+      <p id="fin-sub"></p>
+      <p class="fin-hint">тап — пропустить</p>
+    </div>
+
+    <div id="pz-back" class="hidden">
+      <button id="btn-pz-back">В меню</button>
+    </div>
+
+    <div id="choice" class="overlay hidden">
+      <div class="card">
+        <h2>Топлива хватит на одно</h2>
+        <p class="sub">Искра держит руку над переключателем. Второй робот моргает индикатором за переборкой.</p>
+        <button id="btn-choice-friend" class="primary">Забрать второго робота</button>
+        <button id="btn-choice-alone" class="ghost">Улететь одному</button>
+      </div>
+    </div>
+
+    <div id="story" class="overlay hidden">
+      <div class="card story">
+        <div id="story-tag" class="tag"></div>
+        <h2 id="story-title"></h2>
+        <p id="story-text"></p>
+        <button id="btn-story" class="primary">Дальше</button>
+      </div>
+    </div>
+
+    <div id="dead" class="overlay hidden">
+      <div class="card">
+        <h2>Искра сломался</h2>
+        <p class="sub" id="dead-text">Корпус повреждён, но ядро цело.</p>
+        <button id="btn-continue" class="primary ad-line hidden">Продолжить с контрольной точки <small>за рекламу</small></button>
+        <button id="btn-retry" class="primary">С начала уровня</button>
+        <button id="btn-dead-home" class="ghost">В меню</button>
+      </div>
+    </div>
+
+    <div id="pausemenu" class="overlay hidden">
+      <div class="card">
+        <h2>Пауза</h2>
+        <button id="btn-resume" class="primary">Продолжить</button>
+        <button id="btn-pause-home" class="ghost">В меню</button>
+        <p class="hint">Управление: ← → идти, прыжок — пробел или кнопка справа.</p>
+      </div>
+    </div>
+
+    <div id="code" class="overlay hidden">
+      <div class="card">
+        <h2>Промокод</h2>
+        <p class="sub">Код из письма после покупки набора. Одноразовый и работает на этом устройстве.</p>
+        <input id="code-input" class="code-input" type="text" inputmode="text" autocomplete="off"
+               autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="ISKRA-K-7K3M-9Q2F" />
+        <button id="btn-code-ok" class="primary">Активировать</button>
+        <p id="code-msg" class="hint"></p>
+        <p class="hint">Купить набор — <a class="link" href="shop.html">магазин</a></p>
+        <button id="btn-code-close" class="ghost">Назад</button>
+      </div>
+    </div>
+
+    <button id="btn-pause" class="tiny-btn pause-btn hidden">II</button>
+  </div>
+  <script src="game.js?v=20261110-2"></script>
+</body>
+</html>
