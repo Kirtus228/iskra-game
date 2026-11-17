@@ -1,3 +1,8 @@
+// Телефон: долгое нажатие не должно открывать системное меню/выделение
+document.addEventListener('contextmenu', (event) => event.preventDefault());
+document.addEventListener('selectstart', (event) => event.preventDefault());
+document.addEventListener('dragstart', (event) => event.preventDefault());
+
 /* «Искра: проект Ракета» — пиксельный платформер с головоломками для Яндекс.Игр.
    Всё рисуется кодом: ни одного внешнего файла с картинками. */
 (() => {
@@ -760,6 +765,9 @@
   }
 
   const activePointers = new Map();
+
+  // Долгое нажатие на канвас не должно ни выделять текст, ни открывать «Копировать» в Safari.
+  canvas.addEventListener('touchstart', (ev) => ev.preventDefault(), { passive: false });
 
   canvas.addEventListener('pointerdown', (ev) => {
     ev.preventDefault();
